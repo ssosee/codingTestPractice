@@ -59,7 +59,6 @@ public class test4 {
             answer.add(tmp);
         }
 
-
         return answer;
     }
 }
