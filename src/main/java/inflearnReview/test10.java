@@ -1,40 +1,46 @@
 package inflearnReview;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class test10 {
-    public static void main(String[] args) throws Exception{
-        Scanner sr = new Scanner(System.in);
-        String str = sr.next();
-        char c = sr.next().charAt(0);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String inputStr = br.readLine();
+        Solution sol = new Solution();
+        int[] result = sol.solution(inputStr);
 
-        for (int i : new Solution().solution(str, c)) {
-            System.out.print(i+" ");
+        for (Integer integer : result) {
+            System.out.print(integer+" ");
         }
     }
 
-    public static class Solution {
-        public int[] solution(String str, char c) {
-            int[] answer = new int[str.length()];
-            int d = 1000;
+    static class Solution {
+        public int[] solution(String inputStr) {
 
-            /**
-             * 1. 왼쪽으로 한번, 오른쪽으로 한번 for문이 돌아야한다.!
-             * 2. 해당 문자를 만나면 거리 0으로 초기화
-             */
-            for(int i = 0; i < str.length(); i++) {
-                if(c == str.charAt(i)) d = 0;
+            String[] str = inputStr.split(" ");
+            String s = str[0];
+            String t = str[1];
+            char[] chars = s.toCharArray();
+            int d = 1000; //거리
+            int[] answer = new int[s.length()];
+
+            //왼쪽으로 거리 비교
+            for(int i = 0; i < s.length(); i++) {
+                if(chars[i] == t.charAt(0)) d = 0;
                 else d++;
                 answer[i] = d;
             }
 
             d = 1000; //초기화
 
-            for(int i = str.length() - 1; i >= 0; i--) {
-                if(c == str.charAt(i)) d = 0;
+            //오른쪽으로 거리 비교
+            for(int i = s.length() - 1; i >= 0; i--) {
+                if(chars[i] == t.charAt(0)) d = 0;
                 else d++;
+                //작은 값으로 대체
                 if(answer[i] > d) answer[i] = d;
             }
-
 
             return answer;
         }
