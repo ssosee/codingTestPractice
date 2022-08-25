@@ -53,10 +53,6 @@ public class KakaoMBTI {
             return mbti;
         }
 
-        public void setMbtiTypeScore(String type, Integer score) {
-            mbtiTypeScore.put(type, score);
-        }
-
         public void setMbti(String mbti) {
             this.mbti = mbti;
         }
