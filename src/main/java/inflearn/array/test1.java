@@ -1,4 +1,4 @@
-package inflearn;
+package inflearn.array;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.Scanner;
 /**
  * <h1>큰 수 출력하기</h1>
  */
-public class test13 {
+public class test1 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int num = Integer.parseInt(br.readLine());

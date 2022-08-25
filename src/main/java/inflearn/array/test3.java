@@ -1,4 +1,4 @@
-package inflearn;
+package inflearn.array;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 가위 바위 보
  */
-public class test15 {
+public class test3 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int gameCount = Integer.parseInt(br.readLine());
