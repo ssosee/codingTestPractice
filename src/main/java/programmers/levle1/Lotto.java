@@ -1,5 +1,9 @@
 package programmers.levle1;
 
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
 /**
  * <a href="https://school.programmers.co.kr/learn/courses/30/lessons/77484">
  *     로또의 최고순위와 최저순위</a>
