@@ -7,7 +7,6 @@ import java.util.*;
  * 임시반장 정하기
  */
 public class test11 {
-
     public static void main(String[] args){
         Scanner in=new Scanner(System.in);
         int num = in.nextInt();
@@ -21,7 +20,7 @@ public class test11 {
         }
 
         //비교
-        int max = 1000;
+        int max = 0;
         int answer = 0;
         //사람1
         for(int i = 0; i < num; i++) {
@@ -38,7 +37,7 @@ public class test11 {
                 }
             }
             if(cnt > max) {
-                cnt = max;
+                max = cnt;
                 answer = i;
             }
         }
