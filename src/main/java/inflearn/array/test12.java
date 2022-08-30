@@ -63,7 +63,7 @@ public class test12 {
 
             for (int i = 0; i < student_size; i++) {
                 possible.clear();
-                for(int init = 1; init < student_size+1; init++) possible.add(init);
+                for(int init = 1; init < student_size+1; init++) possible.add(init); //학생 번호 삽입
 
                 int my = i+1;
                 for(int test = 0; test < test_size; test++) {
