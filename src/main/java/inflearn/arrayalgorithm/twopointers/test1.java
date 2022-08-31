@@ -1,4 +1,4 @@
-package inflearn.array2;
+package inflearn.arrayalgorithm.twopointers;
 
 /**
  * 두 배열 합치기

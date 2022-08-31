@@ -1,4 +1,4 @@
-package inflearn.array2;
+package inflearn.arrayalgorithm.twopointers;
 
 import java.util.*;
 
