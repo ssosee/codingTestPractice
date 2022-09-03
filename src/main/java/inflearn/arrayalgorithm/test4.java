@@ -19,6 +19,24 @@ public class test4 {
     }
     static class Solution {
 
+
+        public int solution2(int num, int sumResult, int[] arr) {
+            int answer = 0;
+            int sum = 0;
+            int lt = 0;
+            for(int rt = 0; rt < num; rt++) {
+                sum += arr[rt];
+                while (sum > sumResult) {
+                    sum -= arr[lt++];
+                }
+                if(sum == sumResult) {
+                    answer++;
+                }
+            }
+
+            return answer;
+        }
+
         public int solution(int num, int sumResult, int[] arr) {
             int answer = 0;
             int sum = 0;
