@@ -23,21 +23,23 @@ public class test3 {
         public int getNumber(int n, int[][] arr, int m, int[] mArr) {
             Stack<Integer> stack = new Stack<>();
             int answer = 0;
-            for(int pos : mArr) {
+
+            for(int p : mArr) {
                 for(int i = 0; i < n; i++) {
-                    if(arr[i][pos-1] != 0) {
-                        int tmp = arr[i][pos-1];
-                        arr[i][pos-1] = 0;
+                    if(arr[i][p-1] != 0) {
+                        int tmp = arr[i][p-1];
+                        arr[i][p-1] = 0;
                         if(!stack.isEmpty() && stack.peek() == tmp) {
-                            answer += 2;
                             stack.pop();
+                            answer += 2;
                         } else {
-                            stack.add(tmp);
+                            stack.push(tmp);
                         }
                         break;
                     }
                 }
             }
+
             return answer;
         }
     }
