@@ -15,14 +15,17 @@ public class test5 {
             for(int i = 0; i < s.length(); i++) {
                 if(s.charAt(i) == '(') {
                     stack.push(s.charAt(i));
-                }
-                //레이저 확인
-                else if(s.charAt(i-1) == '(') {
-                    stack.pop();
-                    answer += stack.size();
                 } else {
+                    //막대기 만들기
                     stack.pop();
-                    answer += 1;
+                    if(!stack.isEmpty()) {
+                        if(stack.peek() == '(') {
+                            //왼쪽 막대기 조각
+                            answer += stack.size();
+                        } else { //막대기의 끝
+                            answer++;
+                        }
+                    }
                 }
             }
             return answer;
