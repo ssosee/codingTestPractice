@@ -11,18 +11,18 @@ public class test7 {
     }
     static class Solution {
         public String getAnswer(String s1, String s2) {
-            Queue<Character> queue1 = new LinkedList<>();
-            for(int i = 0; i < s1.length(); i++) {
-                queue1.offer(s1.charAt(i));
+            Queue<Character> queue = new LinkedList<>();
+            for(char ch : s1.toCharArray()) {
+                queue.offer(ch);
             }
             for(int i = 0; i < s2.length(); i++) {
-                if(queue1.contains(s2.charAt(i))) {
-                    if(s2.charAt(i) != queue1.poll()) {
+                if(queue.contains(s2.charAt(i))) {
+                    if(s2.charAt(i) != queue.poll()) {
                         return "NO";
                     }
                 }
             }
-            if(!queue1.isEmpty()) return "NO";
+            if(!queue.isEmpty()) return "NO";
             return "YES";
         }
     }
