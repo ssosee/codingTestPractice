@@ -3,12 +3,8 @@ package backjoon.datastructure.slidingwindow;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 public class Quiz12891 {
     /**
@@ -20,101 +16,99 @@ public class Quiz12891 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        // 정답
         int result = 0;
-        // 4가 되면 result를 1 증가
-        int checkSecret = 0;
+        int count = 0;
 
-        // 문자열의 크기
-        int S = Integer.parseInt(st.nextToken());
+        // 문자열 길이
+        int len = Integer.parseInt(st.nextToken());
 
-        // 부분 문자열의 크기
-        int P = Integer.parseInt(st.nextToken());
+        // 부분 문자열 길이
+        int partLen = Integer.parseInt(st.nextToken());
 
-        // 문자열 데이터
-        char[] A = br.readLine().toCharArray();
+        // 랜덤 문자열
+        String str = br.readLine();
 
-        // 비밀번호 체크 배열
-        int[] checkArr = new int[4];
+        // 필수 문자 갯수 배열
         st = new StringTokenizer(br.readLine());
+        int[] arr = new int[4];
         for (int i = 0; i < 4; i++) {
-            checkArr[i] = Integer.parseInt(st.nextToken());
-            if (checkArr[i] == 0) checkSecret++;
+            arr[i] = Integer.parseInt(st.nextToken());
+            if (arr[i] == 0) count++;
         }
 
-        // 현재상태 배열
-        int[] myArr = new int[4];
-
-        for (int i = 0; i < P; i++) {
-            switch (A[i]) {
+        int[] newArr = new int[4];
+        char[] ch = str.toCharArray();
+        for (int i = 0; i < partLen; i++) {
+            switch (ch[i]) {
                 case 'A':
-                    myArr[0]++;
-                    if (myArr[0] == checkArr[0]) checkSecret++;
+                    newArr[0]++;
+                    if (newArr[0] == arr[0]) count++;
                     break;
                 case 'C':
-                    myArr[1]++;
-                    if (myArr[1] == checkArr[1]) checkSecret++;
+                    newArr[1]++;
+                    if (newArr[1] == arr[1]) count++;
                     break;
                 case 'G':
-                    myArr[2]++;
-                    if (myArr[2] == checkArr[2]) checkSecret++;
+                    newArr[2]++;
+                    if (newArr[2] == arr[2]) count++;
                     break;
                 case 'T':
-                    myArr[3]++;
-                    if (myArr[3] == checkArr[3]) checkSecret++;
+                    newArr[3]++;
+                    if (newArr[3] == arr[3]) count++;
                     break;
             }
         }
 
-        if (checkSecret == 4) result++;
+        if(count == 4) result++;
+
         /**
          * 슬라이딩 윈도우
          * i = start point
          * j = end point
          */
-        for (int i = P; i < S; i++) {
-            int j = i - P;
-            switch (A[i]) {
+        for(int i = partLen; i < len; i++) {
+            int j = i - partLen;
+            // 윈도우 범위에 새롭게 들어간 값 추가
+            switch (ch[i]) {
                 case 'A':
-                    myArr[0]++;
-                    if (myArr[0] == checkArr[0]) checkSecret++;
+                    newArr[0]++;
+                    if (newArr[0] == arr[0]) count++;
                     break;
                 case 'C':
-                    myArr[1]++;
-                    if (myArr[1] == checkArr[1]) checkSecret++;
+                    newArr[1]++;
+                    if (newArr[1] == arr[1]) count++;
                     break;
                 case 'G':
-                    myArr[2]++;
-                    if (myArr[2] == checkArr[2]) checkSecret++;
+                    newArr[2]++;
+                    if (newArr[2] == arr[2]) count++;
                     break;
                 case 'T':
-                    myArr[3]++;
-                    if (myArr[3] == checkArr[3]) checkSecret++;
+                    newArr[3]++;
+                    if (newArr[3] == arr[3]) count++;
                     break;
             }
 
-            switch (A[j]) {
+            // 윈도우 범위에 벗어난 값 제거
+            switch (ch[j]) {
                 case 'A':
-                    if (myArr[0] == checkArr[0]) checkSecret--;
-                    myArr[0]--;
+                    if (newArr[0] == arr[0]) count--;
+                    newArr[0]--;
                     break;
                 case 'C':
-                    if (myArr[1] == checkArr[1]) checkSecret--;
-                    myArr[1]--;
+                    if (newArr[1] == arr[1]) count--;
+                    newArr[1]--;
                     break;
                 case 'G':
-                    if (myArr[2] == checkArr[2]) checkSecret--;
-                    myArr[2]--;
+                    if (newArr[2] == arr[2]) count--;
+                    newArr[2]--;
                     break;
                 case 'T':
-                    if (myArr[3] == checkArr[3]) checkSecret--;
-                    myArr[3]--;
+                    if (newArr[3] == arr[3]) count--;
+                    newArr[3]--;
                     break;
             }
-            if(checkSecret == 4) result++;
+            if(count == 4) result++;
         }
-
         System.out.println(result);
-        br.close();
     }
 }
