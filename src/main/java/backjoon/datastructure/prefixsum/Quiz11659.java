@@ -36,7 +36,7 @@ public class Quiz11659 {
     // 합 배열 계산
     private static int[] getRangeSum(BufferedReader br, int n) throws IOException {
         StringTokenizer st2 = new StringTokenizer(br.readLine());
-        int[] rangeSum = new int[n +1];
+        int[] rangeSum = new int[n+1];
         for(int i = 0; i < n; i++) {
             rangeSum[i+1] = rangeSum[i] + Integer.parseInt(st2.nextToken());
         }
