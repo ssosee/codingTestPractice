@@ -30,11 +30,10 @@ public class Quiz12847 {
         for(int i = m; i < n; i++) {
             int j = i - m; // 3 - 3 = 0, 4 - 3 = 1
             temp = temp + money[i] - money[j];
-            if(temp > max) {
-                max = temp;
-            }
+            max = Math.max(temp, max);
         }
 
         System.out.println(max);
+        br.close();
     }
 }
