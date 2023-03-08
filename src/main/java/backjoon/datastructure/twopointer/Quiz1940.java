@@ -30,14 +30,16 @@ public class Quiz1940 {
         int sp = 0;
         int ep = n-1;
         int count = 0;
+        int sum = 0;
         while (sp < ep) {
-            if(arr[sp] + arr[ep] == m) {
+            sum = arr[sp] + arr[ep];
+            if(sum == m) {
                 count++;
                 sp++;
                 ep--;
-            } else if (arr[sp] + arr[ep] < m) {
+            } else if (sum < m) {
                 sp++;
-            } else if (arr[sp] + arr[ep] > m) {
+            } else if (sum > m) {
                 ep--;
             }
         }
