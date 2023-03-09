@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+/**
+ * 1. 배열의 합을 구한다.
+ * 2.
+ */
 public class Quiz12847 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -25,7 +29,10 @@ public class Quiz12847 {
             max += money[i];
         }
 
-        // 슬라이딩 윈도우
+        /**
+         * 슬라이딩 윈도우
+         * max에서 기존의 것은 빼고, 새로운 값은 더한다.
+         */
         long temp = max;
         for(int i = m; i < n; i++) {
             int j = i - m; // 3 - 3 = 0, 4 - 3 = 1
