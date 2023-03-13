@@ -9,21 +9,21 @@ public class Quiz1427 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String n = br.readLine();
 
-        // 선택 정렬을 이용하여 내림차순으로 정렬
+        // 삽입 정렬을 이용하여 내림차순으로 정렬
         char[] ch = n.toCharArray();
-        char max = 0;
-        int index = 0;
-        for(int i = 0; i < ch.length; i++) {
-            for(int j = i; j < ch.length; j++) {
-                if(ch[j] > max) {
-                    max = ch[j];
-                    index = j;
-                }
+        /**
+         * 타겟 설정
+         * 타켓값과 비교 대상 범위의 값과 비교하며 shift 연산
+         */
+        for(int i = 1; i < ch.length; i++) {
+            int index = i;
+            char target = ch[index];
+            while (index > 0 && target > ch[index-1]) {
+                // [7, 3, 5] -> [7, 5, 3]
+                ch[index] = ch[index - 1]; // shift
+                index--;
             }
-            char temp = ch[i];
-            ch[i] = max;
-            ch[index] = temp;
-            max = 0;
+            ch[index] = target;
         }
 
         StringBuilder sb = new StringBuilder();
