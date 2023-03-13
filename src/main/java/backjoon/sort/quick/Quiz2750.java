@@ -3,7 +3,6 @@ package backjoon.sort.quick;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 
 public class Quiz2750 {
     public static void main(String[] args) throws IOException {
@@ -45,7 +44,7 @@ public class Quiz2750 {
 
     private static int partitionSort(int[] arr, int start, int end) {
         // 리스트의 가운데 있는 값을 pivot 값을 선택
-        int pivot = (start + end) / 2;
+        int pivot = arr[(start + end) / 2];
 
         // 시작 인덱스(start)는 계속 증가 시키고,
         // 끝 인덱스(end)는 계속 감소 시키기위한 while 루프를
@@ -54,12 +53,12 @@ public class Quiz2750 {
             // 시작 인덱스(start)가 가리키는 값과 pivot 값을 비교해서
             // 더 작은 경우 반복해서 시작 인덱스 값을 증가
             // (pivot 값보다 큰데 좌측에 있는 값을 찾기 위해)
-            while (arr[start] < arr[pivot]) start++;
+            while (arr[start] < pivot) start++;
 
             // 끝 인덱스(end)가 가리키는 값과 pivot 값을 비교해서
             // 더 작은 경우 반복해서 끝 인덱스 값을 감소
             // (pivot 값보다 작은데 우측에 있는 값을 찾기 위해)
-            while (arr[end] > arr[pivot]) end--;
+            while (arr[end] > pivot) end--;
 
             // 두 인덱스가 아직 서로 교차해서 지나치치 않았다면
             // 시작 인덱스(start)가 가리키는 값과 끝 인덱스(end)가 가리키는 값을 swap

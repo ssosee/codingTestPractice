@@ -30,6 +30,6 @@ public class Quiz1427 {
         for(char c : ch) {
             sb.append(c);
         }
-        System.out.println(sb);
+        System.out.print(sb);
     }
 }

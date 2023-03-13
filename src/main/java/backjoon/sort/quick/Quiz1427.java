@@ -11,34 +11,42 @@ public class Quiz1427 {
 
         // 퀵 정렬을 이용하여 내림차순으로 정렬
         char[] ch = n.toCharArray();
-        /**
-         * pivot 설정
-         * A[pivot] > A[start] ->
-         *   start++;
-         *
-         * A[pivot] < A[end] ->
-         *   end--;
-         *
-         * A[pivot] < A[start] && A[pivot] > A[end] ->
-         *   A[start] swap A[end]; start++; end--;
-         *
-         * start == end ->
-         *   A[pivot] > A[start] -> A[pivot] swap A[++start],
-         *   A[pivot] < A[start] -> A[pivot] swap A[--start]
-         */
+
         int start = 0;
-        int end = ch.length-2;
-        int pivot = ch.length-1;
-        while (start <= end) {
-
-        }
-
-
+        int end = ch.length - 1;
+        qucikSortReverse(ch, start, end);
 
         StringBuilder sb = new StringBuilder();
         for(char c : ch) {
             sb.append(c);
         }
-        System.out.println(sb);
+        System.out.print(sb);
+    }
+
+    private static void qucikSortReverse(char[] ch, int start, int end) {
+        if(start >= end) return;
+        int mid = partition(ch, start, end);
+        qucikSortReverse(ch, start, mid - 1);
+        qucikSortReverse(ch, mid, end);
+    }
+
+    private static int partition(char[] ch, int start, int end) {
+        char pivot = ch[(start + end) / 2];
+        System.out.println("a="+pivot);
+        System.out.println("b="+(start + end) / 2);
+        while (start <= end) {
+            while (pivot < ch[start]) start++;
+            while (pivot > ch[end]) end--;
+            if(start <= end) {
+                swap(ch, start++, end--);
+            }
+        }
+        return start;
+    }
+
+    private static void swap(char[] ch, int start, int end) {
+        char temp = ch[start];
+        ch[start] = ch[end];
+        ch[end] = temp;
     }
 }
