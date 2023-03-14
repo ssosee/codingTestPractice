@@ -16,7 +16,7 @@ public class Quiz2750 {
         for(int i = 1; i < n; i++) {
             int index = i;
             int target = arr[index]; // 선택
-            while (index > 0 && arr[index-1] > target) {
+            while (index > 0 && target < arr[index-1]) {
                 arr[index] = arr[index-1]; // shift
                 index--;
             }

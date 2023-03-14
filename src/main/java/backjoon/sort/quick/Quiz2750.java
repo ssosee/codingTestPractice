@@ -43,7 +43,7 @@ public class Quiz2750 {
     }
 
     private static int partitionSort(int[] arr, int start, int end) {
-        // 리스트의 가운데 있는 값을 pivot 값을 선택
+        // 리스트의 가운데 있는 pivot 값을 선택
         int pivot = arr[(start + end) / 2];
 
         // 시작 인덱스(start)는 계속 증가 시키고,

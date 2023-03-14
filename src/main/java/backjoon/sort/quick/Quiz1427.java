@@ -32,8 +32,6 @@ public class Quiz1427 {
 
     private static int partition(char[] ch, int start, int end) {
         char pivot = ch[(start + end) / 2];
-        System.out.println("a="+pivot);
-        System.out.println("b="+(start + end) / 2);
         while (start <= end) {
             while (pivot < ch[start]) start++;
             while (pivot > ch[end]) end--;
