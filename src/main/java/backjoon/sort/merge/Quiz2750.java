@@ -18,7 +18,7 @@ public class Quiz2750 {
         mergeSort(arr, temp, 0, arr.length-1);
         StringBuilder sb = new StringBuilder();
         for(int i : arr) {
-            sb.append(i).append("\n");
+              sb.append(i).append("\n");
         }
 
         System.out.println(sb);
@@ -35,28 +35,36 @@ public class Quiz2750 {
     }
 
     private static void merge(int[] arr, int[] temp, int start, int mid, int end) {
-        // 임시 저장소에 정렬이 된 배열 복사
-        for(int i = start; i <= end; i++) {
-            temp[i] = arr[i];
-        }
-        int index1 = start; // 왼쪽 배열 위치
-        int index2 = mid + 1; // 오른쪽 배열 위치
+        int index1 = start; // 왼쪽 배열 시작 위치
+        int index2 = mid + 1; // 오른쪽 배열 시작 위치
         int resultIndex = start; // 결과 배열에 저장해야하는 위치
         while (index1 <= mid && index2 <= end) {
-            if(temp[index1] <= temp[index2]) {
-                arr[resultIndex] = temp[index1];
+            if(arr[index1] <= arr[index2]) {
+                temp[resultIndex] = arr[index1];
                 index1++;
             } else {
-                arr[resultIndex] = temp[index2];
+                temp[resultIndex] = arr[index2];
                 index2++;
             }
             resultIndex++;
         }
-        // 만약 뒷쪽 배열(temp)은 비었고, 앞쪽 배열(temp)에 데이터가 남은 경우
-        for(int i = 0; i <= mid - index1; i++) {
-            arr[resultIndex + i] = temp[index1 + i];
+        // 남은 데이터 삽입
+        // index1이 먼저 끝났다면 index2의 데이터 삽입
+        if(index1 > mid) {
+            for(int i = index2; i <= end; i++) {
+                temp[resultIndex] = arr[i];
+                resultIndex++;
+            }
+        } else {
+            for(int i = index1; i <= mid; i++) {
+                temp[resultIndex] = arr[i];
+                resultIndex++;
+            }
         }
-        // 만약 앞쪽 배열(temp)은 비었고, 뒷쪽 배열(temp)에 데이터가 남은 경우
-        // 뒷쪽 배열은 이미 arr의 뒷쪽에 자리하고 있음
+
+        // 실제 배열로 옮기는 과정
+        for(int i = start; i <= end; i++) {
+            arr[i] = temp[i];
+        }
     }
 }
