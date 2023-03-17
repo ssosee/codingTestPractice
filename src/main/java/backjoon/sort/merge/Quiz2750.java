@@ -48,6 +48,7 @@ public class Quiz2750 {
             }
             resultIndex++;
         }
+
         // 남은 데이터 삽입
         // index1이 먼저 끝났다면 index2의 데이터 삽입
         if(index1 > mid) {

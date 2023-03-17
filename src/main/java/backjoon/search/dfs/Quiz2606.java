@@ -3,9 +3,7 @@ package backjoon.search.dfs;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Quiz2606 {
     // 1번 노드와 연관 있는 컴퓨터 갯수 출력
