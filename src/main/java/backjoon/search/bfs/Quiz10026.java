@@ -10,7 +10,6 @@ import java.util.Queue;
 public class Quiz10026 {
 
     static int n = 0;
-    static int area = 0;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         // 사진의 크기
@@ -78,12 +77,10 @@ public class Quiz10026 {
                     continue;
                 }
 
-                // 방문 기록이 없으면 RGB 탐색
-                if(!visited[newX][newY]) {
-                   if(photo[newX][newY] == color) {
-                       visited[newX][newY] = true;
-                       queue.add(new Node(newX, newY));
-                   }
+                // 방문 기록이 없고 탐색 위치에 색이 같으면
+                if(!visited[newX][newY] && photo[newX][newY] == color) {
+                   visited[newX][newY] = true;
+                   queue.add(new Node(newX, newY));
                 }
             }
         }
