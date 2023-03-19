@@ -8,73 +8,62 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Quiz1697 {
-
     static int result = 0;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-
+        // 수빈이의 위치
         int n = Integer.parseInt(st.nextToken());
+        // 동생의 위치
         int k = Integer.parseInt(st.nextToken());
 
-        boolean[] visited = new boolean[1000001];
-        bfs(visited, n, k);
-        System.out.println(result);
+        // 수빈이가 동생보다 앞에 있으면 뒤로만 갈 수 있음
+        // 뒤로 1칸 이동 1초 소요
+        if(n >= k) {
+            System.out.print(n-k);
+            br.close();
+            return;
+        }
 
+        // 방문 이력 배열(시간(깊이)도 같이 표시)
+        // n의 범위가 0 ~ 100_000 -> 100_001개
+        int[] visited = new int[100_001];
+        bfs(visited, n, k);
+        System.out.print(result);
         br.close();
     }
 
-    private static void bfs(boolean[] visited, int n, int k) {
-        Queue<Node> queue = new ArrayDeque<>();
-        queue.add(new Node(n, 1));
+    private static void bfs(int[] visited, int n, int k) {
+        Queue<Integer> queue = new ArrayDeque<>();
+        // 수빈이의 위치 큐에 삽입
+        queue.add(n);
+        // 수빈이의 위치 방문 표시
+        visited[n] = 1;
+
         while (!queue.isEmpty()) {
-            // 현재 수빈이의 위치와 탐색 깊이 조회
-            Node node = queue.poll();
+            // 수빈이의 현재 위치
+            Integer currentPosition = queue.poll();
+            // 수빈이가 움직일 수 있는 방법
+            int[] move = {currentPosition - 1, currentPosition + 1, currentPosition * 2};
+            for (int i = 0; i < 3; i++) {
+                // 수빈이가 움직였는데 동생을 만날 수 있으면
+                if(move[i] == k) {
+                    result = visited[currentPosition];
+                    return;
+                }
 
-            int back = node.getPosition() - 1;
-            int forward = node.getPosition() + 1;
-            int teleport = node.getPosition() * 2;
+                // 범위 확인
+                if(move[i] < 0 || move[i] > 100_000) {
+                    continue;
+                }
 
-            // 수빈이가 동생 위치를 찾으면
-            if(node.getPosition() == k) {
-                // depth는 1부터 시작하기 때문에 걸린시간은 1을 빼줘야함
-                result = node.getDepth() - 1;
-                break;
+                // 방문 이력이 없으면
+                if(visited[move[i]] == 0) {
+                    queue.add(move[i]);
+                    // 시간(깊이)을 1 증가
+                    visited[move[i]] = visited[currentPosition] + 1;
+                }
             }
-
-            // 범위를 벗어나지 않고 뒤로 1칸 가는 수빈이
-            if(back >= 0 && !visited[back]) {
-                visited[back] = true;
-                queue.add(new Node(back, node.getDepth()+1));
-            }
-            // 범위를 벗어나지 않고 앞으로 1칸 가는 수빈이
-            if(forward <= 100000 && !visited[forward]) {
-                visited[forward] = true;
-                queue.add(new Node(forward, node.getDepth()+1));
-            }
-            // 범위를 벗어나지 않고 순간이동하는 수빈이
-            if(teleport <= 100000 && !visited[teleport]) {
-                visited[teleport] = true;
-                queue.add(new Node(teleport, node.getDepth()+1));
-            }
-        }
-    }
-
-    static class Node {
-        private int position;
-        private int depth;
-
-        public Node(int position, int depth) {
-            this.position = position;
-            this.depth = depth;
-        }
-
-        public int getPosition() {
-            return position;
-        }
-
-        public int getDepth() {
-            return depth;
         }
     }
 }
