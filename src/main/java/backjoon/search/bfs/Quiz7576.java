@@ -35,7 +35,7 @@ public class Quiz7576 {
          * depth가 최대인 것을 출력한다.
          */
 
-        // 1인 토마토를 큐에 먼저 다 넣는다.
+        // 익은 토마토를 큐에 먼저 다 넣는다.
         Queue<Node> queue = new ArrayDeque<>();
         int[][] visited = new int[n][m];
         for(int i = 0; i < n; i++) {
