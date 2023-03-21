@@ -8,82 +8,66 @@ import java.util.StringTokenizer;
 import java.util.Arrays;
 
 public class Quiz2110 {
-
-    public static int[] house;
-
     public static void main(String[] args) throws IOException {
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         StringTokenizer st = new StringTokenizer(br.readLine());
+        // 집 갯수
+        int houseNum = Integer.parseInt(st.nextToken());
+        // 라우터 갯수
+        int target = Integer.parseInt(st.nextToken());
 
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
-
-        house = new int[N];
-        for(int i = 0; i < N; i++) {
+        int[] house = new int[houseNum];
+        long max = Long.MIN_VALUE;
+        for(int i = 0; i < houseNum; i++) {
             house[i] = Integer.parseInt(br.readLine());
+            max = Math.max(max, house[i]);
         }
 
-        Arrays.sort(house);	// 이분탐색을 하기 위해선 반드시 정렬 되어있어야 한다.
+        // [1 2 4 8 9]
+        Arrays.sort(house);
 
-        int result = getUpperBound(N, M);
+        // 한 집에서는 1개의 공유기만 설치 가능
+        // 가장 인접한 두 공유기 사이의 최대 거리
+        long upperBound = getUpperBound(house, target, max + 1);
+        System.out.print(upperBound - 1);
 
-        /*
-         *  Upper Bound는 탐색 값을 초과하는 첫 번째 값을 가리키므로,
-         *  1을 빼준 값이 조건식을 만족하는 최댓값이 된다.
-         */
-        System.out.println(result - 1);
+        br.close();
     }
 
-    private static int getUpperBound(int N, int M) {
-        int start = 1;		// 최소 거리가 가질 수 있는 최솟값
-        int end = house[N - 1] - house[0] + 1;	// 최소 거리가 가질 수 있는 최댓값
+    private static long getUpperBound(int[] house, long target, long max) {
+        long min = 0;
+        while (min < max) {
+            // 임의로 정한 집 사이의 거리
+            long mid = min + (max - min) / 2;
+            long count = installRouter(house, mid);
 
-        while(start < end) {	// Upper Bound 형식
-            int mid = (start + end) / 2;
-
-            /**
-             * mid 거리에 대해 설치 가능한 공유기 개수가 M 개수에 못미치면
-             * 거리를 좁혀야 하기 때문에 end 를 줄인다.
-             */
-            if(canInstall(mid) < M) {
-                end = mid;
-            }
-            else {
-                /**
-                 * 설치 가능한 공유기 개수가 M 개수보다 크거나 같으면
-                 * 거리를 벌리면서 최소거리가 가질 수 있는 최대 거리를
-                 * 찾아낸다.
-                 */
-                start = mid + 1;
+            // 목표 라우터 갯수가 임의로 설치한 라우터 갯수보다 많으면
+            if(target > count) {
+                max = mid;
+            } else {
+                min = mid + 1;
             }
         }
-        return end;
+        return min;
     }
 
-    // distance에 대해 설치 가능한 공유기 개수를 찾는 메소드
-    public static int canInstall(int distance) {
-
-        // 첫 번째 집은 무조건 설치한다고 가정
-        int count = 1;
-        int lastLocate = house[0];
-
+    private static long installRouter(int[] house, long mid) {
+        int distance = 0;
+        int count = 1; // house[0]는 설치
+        int k = 0;
         for(int i = 1; i < house.length; i++) {
-            int locate = house[i];
-
-            /*
-             *  현재 탐색하는 집의 위치와 직전에 설치했던 집의 위치간 거리가
-             *  최소 거리(distance)보다 크거나 같을 때 공유기 설치 개수를 늘려주고
-             *  마지막 설치 위치를 갱신해준다.
-             */
-            if(locate - lastLocate >= distance) {
+            distance = house[i] - house[k];
+            // 라우터를 설치한 집으로부터 떨어진 다른 집의 거리(distance)가
+            // 우리가 임의로 정한 거리보다 크거나 같을 경우
+            if(distance >= mid) {
+                // 라우터 설치 가능하다는 의미!!
                 count++;
-                lastLocate = locate;
+                // 집(i)는 라우터 설치가 완료되었다.
+                // 따라서 집(i)와 인접한 집 사이의 거리를 구해야 하기때문에
+                // 집의 위치(k)를 (i)로 바꿔 준다.
+                k = i;
             }
         }
         return count;
     }
-
-
 }

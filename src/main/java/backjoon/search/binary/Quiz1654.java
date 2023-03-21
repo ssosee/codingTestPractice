@@ -9,42 +9,45 @@ public class Quiz1654 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int k = Integer.parseInt(st.nextToken());
-        int n = Integer.parseInt(st.nextToken());
 
-        int[] lanCable = new int[k];
-        long max = Integer.MIN_VALUE;
-        for(int i = 0; i < k; i++) {
+        // 소유한 랜선 갯수
+        int lanNum = Integer.parseInt(st.nextToken());
+        // 만들고 싶은 랜선 갯수
+        int target = Integer.parseInt(st.nextToken());
+
+        // 소유한 랜선 길이 저장(랜선 길이는 최대 2^31 - 1)
+        int[] lanCable = new int[lanNum];
+        long max = Long.MIN_VALUE;
+        for(int i = 0; i < lanNum; i++) {
             lanCable[i] = Integer.parseInt(br.readLine());
             max = Math.max(max, lanCable[i]);
         }
 
-        /**
-         * max가 0이고 min이 0이면 이진탐색을 하지 않습니다.
-         * 0 ~ max + 1의 범위를 탐색해야함
-         */
-
-        // 랜선 최대 길이 -> upperBound - 1
-        long result = upperBound(lanCable, n, 0, max+1);
-        System.out.print(result - 1);
-
+        // 랜선의 최대 길이를 출력
+        // 랜선의 길이를 줄이면서 목표하는 랜선 갯수를 만족하는 최대 랜선 길이를 찾아야 한다.
+        // upperBound를 사용하면 된다.
+        long upperBound = getUpperBound(lanCable, target, max + 1);
+        System.out.print(upperBound - 1);
+        br.close();
     }
-
-    /**
-     * 랜선 길이를 이진탐색 한다.
-     * 만들고자 하는 랜선 갯수가 target이 된다.
-     * 이진탐색 중간에 랜선 갯수를 세어서 만족하는지 확인한다.
-     */
-    private static long upperBound(int[] lanCable, int target, long min, long max) {
+    private static long getUpperBound(int[] lanCable, int target, long max) {
+        long min = 0;
         while (min < max) {
-            long count = 0;
+            // 탐색 랜선 길이
             long mid = min + (max - min) / 2;
-            // 중간 길이로 잘라서 몇 개가 만들어지는 지
+            // 탐색 랜선 길이로 나눈 랜선의 총 갯수
+            long lanCount = 0;
             for(int i = 0; i < lanCable.length; i++) {
-                count += (lanCable[i] / mid);
+                lanCount += (lanCable[i] / mid);
             }
-
-            if(count < target) {
+            /**
+             * lanCount가 target을 초과한 첫 갯수
+             * 따라서 target > lanCount
+             */
+            // 원하는 랜선 갯수가 탐색길이로 자른 랜선 갯수가 더 많으면
+            if(target > lanCount) {
+                // 탐색 랜선 길이를 너무 길게 선정함
+                // 탐색 랜선 길이를 줄여보자.
                 max = mid;
             } else {
                 min = mid + 1;
