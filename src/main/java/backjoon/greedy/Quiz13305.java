@@ -32,11 +32,6 @@ public class Quiz13305 {
         // 1. 기름이 제일 싼곳을 찾을 때 까지 다음 주유소까지 거리만큼 기름을 넣는다.
         // 2. 기름이 제일 싼곳을 찾으면 남은 목표 거리만큼 기름을 넣는다.
 
-        /**
-         * roadLen [2, 3, 1]
-         * price   [5, 3, 4, 1]
-         * 10 + 12 -> 22
-         */
         long result = 0;
         long min = price[0];
         for(int i = 0; i < roadLen.length; i++) {
@@ -46,7 +41,6 @@ public class Quiz13305 {
                 min = price[i];
             }
             result += (min * roadLen[i]);
-
         }
 
         System.out.print(result);
