@@ -3,11 +3,15 @@ package backjoon.primenumber;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Quiz1978 {
     public static void main(String[] args) throws IOException {
+        List<Integer>[] list1 = new ArrayList[10];
+        List<Node> list = new ArrayList<>();
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
 
@@ -32,5 +36,14 @@ public class Quiz1978 {
         }
         System.out.print(count);
         br.close();
+    }
+    static class Node {
+        private int n;
+        private int v;
+
+        public Node(int n, int v) {
+            this.n = n;
+            this.v = v;
+        }
     }
 }
