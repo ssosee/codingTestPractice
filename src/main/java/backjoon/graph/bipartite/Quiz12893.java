@@ -1,4 +1,4 @@
-package backjoon.graph;
+package backjoon.graph.bipartite;
 
 import java.io.BufferedReader;
 import java.io.IOException;
