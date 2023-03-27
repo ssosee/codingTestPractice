@@ -1,9 +1,8 @@
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.AssertionsKt;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 public class ComparatorTest {
 
@@ -47,5 +46,11 @@ public class ComparatorTest {
         for(int i = 0; i < A.length; i++) {
             System.out.print(queue.poll()+" ");
         }
+    }
+
+    @Test
+    void ArraysContainsTest() {
+        Integer[] A = {1, 2, 3};
+        Assertions.assertEquals(true, List.of(A).contains(1));
     }
 }
