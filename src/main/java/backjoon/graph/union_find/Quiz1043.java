@@ -53,22 +53,28 @@ public class Quiz1043 {
             party[i] = new ArrayList<>();
         }
 
+        // 이전 입력 값
+        // e.g) 2 1 2 가 입력이면
         int prev = 0;
         for(int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
             // 파티에 오는 사람 수
+            // 2
             int num = Integer.parseInt(st.nextToken());
             if(num > 0) {
+                // 1
                 prev = Integer.parseInt(st.nextToken());
                 party[i].add(prev);
             }
+            // num이 2 이기때문에 for문으로 들어간다
             for(int j = 1; j < num; j++) {
+                // 2
                 int current = Integer.parseInt(st.nextToken());
                 party[i].add(current);
                 // 같이 파티에 온 사람을 동일한 대표노드로 묶어 버린다.
                 union(arr, prev, current);
-
-                prev = current;
+                // 이전 입력값에 현재 입력값을 넣어줘서 이전 입력값으로 만든다.
+                prev = current; // 2
             }
         }
 
