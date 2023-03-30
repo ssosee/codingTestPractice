@@ -3,9 +3,7 @@ package backjoon.graph.topological;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Quiz2252 {
     /**
@@ -43,26 +41,30 @@ public class Quiz2252 {
             inDegree[node2]++; // 인접노드의 진입차수 증가
         }
 
+        // 진입 차수가 0인 노드를 큐에 넣기
+        Queue<Integer> queue = new ArrayDeque<>();
+        for(int i = 1; i <= n; i++) {
+            // 진입 차수가 0 이면
+            if(inDegree[i] == 0) {
+                queue.add(i);
+            }
+        }
+
         StringBuilder sb = new StringBuilder();
-        int node = 1;
-        // 진입차수 방문 이력 배열
-        boolean[] visited = new boolean [n+1];
         // 위상 정렬
-        while(result.size() < n) {
-            int degree = inDegree[node];
-            // 진입 차수가 0이면
-            if(degree == 0 && !visited[node]) {
-                // 노드를 정렬 배열에 저장
-                result.add(node);
-                sb.append(node).append(" ");
-                // 노드의 인접 노드의 진입 차수를 1씩 감소
-                for(Integer j : list[node]) {
-                    inDegree[j]--;
+        while(!queue.isEmpty()) {
+            int node = queue.poll();
+            // 노드를 정렬 배열에 저장
+            result.add(node);
+            sb.append(node).append(" ");
+            // 노드의 인접 노드의 진입 차수를 1씩 감소
+            for(Integer j : list[node]) {
+                inDegree[j]--;
+                // 노드의 진입 차수가 0 이면
+                if(inDegree[j] == 0) {
+                    // 큐에 노드 삽입
+                    queue.add(j);
                 }
-                visited[node] = true;
-                node = 1;
-            } else {
-                node++;
             }
         }
         System.out.print(sb);
