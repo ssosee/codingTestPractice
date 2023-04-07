@@ -9,7 +9,9 @@ public class 타겟_넘버 {
     static int ans = 0;
     public static void main(String[] args) {
         Solution solution = new Solution();
-        System.out.print(solution.solution(new int[]{4, 1, 2, 1}, 4));
+        //System.out.print(solution.solution(new int[]{4, 1, 2, 1}, 4));
+        //System.out.print(solution.solution(new int[]{1, 1, 1, 1, 1}, 3));
+        System.out.print(solution.solution(new int[]{1, 1, 3}, 3));
     }
 
     static class Solution {
@@ -19,70 +21,77 @@ public class 타겟_넘버 {
             return bfs(numbers, target);
         }
 
-        private static int dfs(int[] numbers, int target, int depth, int result) {
+        // 깊이 탐색 -> 한 녀석을 끝까지 판다
+        static int dfs(int[] numbers, int target, int depth, int result) {
+            /**
+             * 1. 더하기 연산 탐색
+             * 2. 빼기 연산 탐색
+             * 3. 타겟을 찾으면 탐색 종료
+             */
             int count = 0;
-            // 깊이 탐색을 마쳤을 때
+            // 끝까지 탐색을 했을때
             if(numbers.length == depth) {
-                // 결과가 타겟값과 일치하면
-                if(result == target) {
+                // 타겟값을 찾으면
+                if(target == result) {
                     count++;
                 }
             } else {
-                // 깊이를 1 증가, result에 number의 depth에 해당하는 값을 더함
+                // 더하기 연산 탐색
                 count += dfs(numbers, target, depth + 1, result + numbers[depth]);
-                // 깊이를 1 증가, result에 number의 depth에 해당하는 값을 뺌
+                // 빼기 연산 탐색
                 count += dfs(numbers, target, depth + 1, result - numbers[depth]);
             }
 
             return count;
         }
 
-        private static int bfs(int[] numbers, int target) {
-            Queue<Node> q = new ArrayDeque<>();
-            q.add(new Node(0, numbers[0]));
-            q.add(new Node(0, numbers[0] * -1));
-            int count = 0;
+        // 너비 우선 탐색
+        static int bfs(int[] numbers, int target) {
+            Queue<Node> queue = new ArrayDeque<>();
+            // 초기 탐색 값 설정
+            queue.add(new Node(0, numbers[0]));
+            queue.add(new Node(0, numbers[0] * -1));
 
-            while (!q.isEmpty()) {
-                Node poll = q.poll();
+            int count = 0;
+            while (!queue.isEmpty()) {
+                Node poll = queue.poll();
                 // 너비 탐색을 마치면
-                if(poll.getPosition() == numbers.length - 1) {
-                    // 타겟값을 찾으면
-                    if(poll.getSum() == target) {
+                if(poll.getNode() == numbers.length - 1) {
+                    // 타겟값 이면
+                    if (poll.getResult() == target) {
+                        // 카운트 증가!
                         count++;
                     }
-                    continue;
                 }
 
-                // 너비 체크
-                if(poll.getPosition() >= numbers.length - 1) {
-                    continue;
+                // 인덱스 증가
+                int newNode = poll.getNode() + 1;
+                if(newNode < numbers.length) {
+                    // 더하기 연산
+                    queue.add(new Node(newNode, poll.getResult() + numbers[newNode]));
+                    // 빼기 연산
+                    queue.add(new Node(newNode, poll.getResult() - numbers[newNode]));
                 }
-
-                int newPosition = poll.getPosition() + 1;
-
-                q.add(new Node(newPosition,  poll.getSum() + numbers[newPosition]));
-                q.add(new Node(newPosition,  poll.getSum() - numbers[newPosition]));
             }
 
             return count;
         }
 
-        private static class Node {
-            private int position;
-            private int sum;
+        static class Node {
+            private int node;
+            private int result;
 
-            public Node(int position, int sum) {
-                this.position = position;
-                this.sum = sum;
+            public Node(int node, int result) {
+                this.node = node;
+                this.result = result;
             }
 
-            public int getPosition() {
-                return position;
+            public int getNode() {
+                return node;
             }
 
-            public int getSum() {
-                return sum;
+            public int getResult() {
+                return result;
             }
         }
     }

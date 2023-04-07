@@ -3,11 +3,11 @@ package backjoon.search.dfs;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.Queue;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class Quiz16953 {
+    static int myDepth = 0;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -15,33 +15,51 @@ public class Quiz16953 {
         int number = Integer.parseInt(st.nextToken());
         int target = Integer.parseInt(st.nextToken());
 
-        long dfs = bfs(number, target);
-        System.out.print(dfs + 1);
+//        dfs(number, target, 0);
+//
+//        if(myDepth == 0) myDepth = -1;
+//        System.out.println(myDepth);
+
+
+        System.out.println(dfsWithStack(number, target));
         br.close();
     }
-    private static long bfs(int number, int target) {
-        Queue<Node> q = new ArrayDeque<>();
-        int count = 0;
-        q.offer(new Node(number, count));
 
-        while (!q.isEmpty()) {
-            Node poll = q.poll();
+    private static void dfs(long number, int target, int depth) {
+        if(number == target) {
+            myDepth = depth + 1;
+            return;
+        }
 
-            // 타겟 값을 찾으면
-            if(poll.getNumber() == target) {
-                return poll.getCount();
+        long case1 = number * 2L;
+        long case2 = number * 10L + 1L;
+        if(case1 <= target) {
+            dfs(case1, target, depth + 1);
+        }
+        if(case2 <= target) {
+            dfs(case2, target, depth + 1);
+        }
+    }
+
+    private static int dfsWithStack(long number, int target) {
+        Stack<Node> stack = new Stack<>();
+        stack.push(new Node(number, 0));
+
+        while (!stack.isEmpty()) {
+            Node pop = stack.pop();
+            if(pop.getNumber() == target) {
+                return pop.getDepth() + 1;
             }
 
-            count = poll.getCount() + 1;
-            long case1 = poll.getNumber() * 2L;
-            long case2 = poll.getNumber() * 10L + 1L;
+            long case1 = pop.getNumber() * 2L;
+            long case2 = pop.getNumber() * 10L + 1L;
+            int depth = pop.getDepth() + 1;
 
-            // 타겟값보다 작은 숫자만 큐에 삽입
             if(case1 <= target) {
-                q.add(new Node(case1, count));
+                stack.push(new Node(case1, depth));
             }
             if(case2 <= target) {
-                q.add(new Node(case2, count));
+                stack.push(new Node(case2, depth));
             }
         }
 
@@ -50,19 +68,19 @@ public class Quiz16953 {
 
     static class Node {
         private long number;
-        private int count;
+        private int depth;
 
-        public Node(long number, int count) {
+        public Node(long number, int depth) {
             this.number = number;
-            this.count = count;
+            this.depth = depth;
         }
 
         public long getNumber() {
             return number;
         }
 
-        public int getCount() {
-            return count;
+        public int getDepth() {
+            return depth;
         }
     }
 }
