@@ -7,57 +7,44 @@ public class 여행경로 {
     public static void main(String[] args) {
         Solution solution = new Solution();
         System.out.println(Arrays.toString(solution.solution(new String[][]{
-                {"ICN", "JFK"},
-                {"ICN", "AAD"},
-                {"JFK", "ICN"}
+                {"ICN", "SFO"},
+                {"ICN", "ATL"},
+                {"SFO", "ATL"},
+                {"ATL", "ICN"},
+                {"ATL", "SFO"}
         })));
     }
     static class Solution {
         public String[] solution(String[][] tickets) {
-            // 항상 ICN에서 출발
-            int x = tickets.length;
-            int y = tickets[0].length;
+            Queue<String> pq = new PriorityQueue<>();
+            boolean[] visited = new boolean[tickets.length];
+            dfs(pq, tickets, visited, 0, "ICN", "ICN");
 
-            List<String> bfs = bfs(tickets, x);
-            String[] answer = bfs.toArray(new String[bfs.size()]);
+            String[] split = pq.peek().split("->");
 
-            int code = 0;
-            Map<String, Integer> map = new HashMap<>();
-            for(int i = 0; i < x; i++) {
-                for(int j = 0; j < y; j++) {
-                    if (!map.containsKey(tickets[i][j])) {
-                        map.put(tickets[i][j], code++);
-                    }
-                }
-            }
-
-            System.out.println(1);
-
-            return answer;
+            return split;
         }
 
-        private List<String> bfs(String[][] tickets, int x) {
-            // 알파벳 순으로 오름차순 정렬
-            Queue<String> pq = new PriorityQueue<>();
-            // 간선 방문 배열
-            boolean[] visited = new boolean[x];
-            List<String> answer = new ArrayList<>();
+        private void dfs(Queue<String> pq, String[][] tickets, boolean[] visited, int depth, String start, String path) {
 
-            pq.offer("ICN");
-            answer.add("ICN");
-
-            while (!pq.isEmpty()) {
-                String poll = pq.poll();
-                System.out.println(poll);
-                for (int i = 0; i < x; i++) {
-                    if (!visited[i] && tickets[i][0].equals(poll)) {
-                        visited[i] = true;
-                        pq.offer(tickets[i][1]);
-                    }
-                }
+            // 탐색을 원하는 깊이에 도달하면
+            if(tickets.length == depth) {
+                // 지금까지 탐색한 경로를 저장
+                pq.offer(path);
+                return;
             }
 
-            return answer;
+            for(int i = 0; i < tickets.length; i++) {
+                // 방문 이력이 없고, 출발 도시(start)가 여행 경로의 도착지(tickets[i][0])인 경우
+                if(!visited[i] && start.equals(tickets[i][0])) {
+                    // 방문
+                    visited[i] = true;
+                    // dfs 수행
+                    dfs(pq, tickets, visited, depth + 1, tickets[i][1], path + "->" + tickets[i][1]);
+                    // dfs를 수행했으면 방문 이력 초기화
+                    visited[i] = false;
+                }
+            }
         }
     }
 }
