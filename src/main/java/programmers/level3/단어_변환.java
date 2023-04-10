@@ -34,10 +34,13 @@ public class 단어_변환 {
 
         private void dfs(String begin, String target, int depth, String[] words, boolean[] visited, String path) {
 
+            // 이전에 찾은 depth보다 크면 탐색할 필요가 없음
+            if(answer <= depth) return;
+
             // 첫 dfs에 begin과 target이 같으면 안됨
             if(depth != 0 && begin.equals(target)) {
                 answer = Math.min(answer, depth);
-                //System.out.println(path); // 탐색 경로를 볼 수 있다.
+                System.out.println(path); // 탐색 경로를 볼 수 있다.
                 return;
             }
 
