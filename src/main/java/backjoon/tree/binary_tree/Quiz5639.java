@@ -3,8 +3,6 @@ package backjoon.tree.binary_tree;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
-import java.util.TreeSet;
 
 public class Quiz5639 {
     static StringBuilder sb =  new StringBuilder();
