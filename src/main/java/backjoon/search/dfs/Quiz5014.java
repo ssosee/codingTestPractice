@@ -60,15 +60,21 @@ public class Quiz5014 {
 
         if(now > f || now <= 0) return;
 
+        // g층에 도착하면
         if(g == now) {
             min = Math.min(min, depth);
             return;
         }
 
+        // 방문 이력이 없으면
         if(!visited[now]) {
+            // 방문
             visited[now] = true;
+            // u만큼 올라가기
             dfs(depth + 1, now + u);
+            // d만큼 내리기
             dfs(depth + 1, now - d);
+            // 방문 이력 삭제(모든 노드를 탐색하기 위해)
             visited[now] = false;
         }
     }
@@ -80,15 +86,21 @@ public class Quiz5014 {
         while (!queue.isEmpty()) {
             Node poll = queue.poll();
 
+            // 범위 체크
             if(poll.getNode() > f || poll.getNode() <= 0) continue;
 
+            // g층에 도착하면
             if(poll.getNode() == g) {
                 return poll.getDepth();
             }
 
+            // 방문 이력이 없으면
             if(!visited[poll.getNode()]) {
+                // 방문
                 visited[poll.getNode()] = true;
+                // u만큼 올라가기
                 queue.offer(new Node(poll.getNode() + u, poll.getDepth() + 1));
+                // d만큼 내려가기
                 queue.offer(new Node(poll.getNode() - d, poll.getDepth() + 1));
             }
         }
