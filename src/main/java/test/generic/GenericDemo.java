@@ -15,23 +15,36 @@ class EmployeeInfo {
     }
 }
 
-class Person<T> {
+// S는 T와 구분하기 위해 다른 문자
+class Person<T, S> {
     public T info;
+    public S id;
 
-    public Person(T info) {
+    public Person(T info, S id) {
         this.info = info;
+        this.id = id;
+    }
+
+    // 제너릭 메소드
+    // 매개변수 데이터 타입을 확정하고 싶지 않아서 사용
+    public <U> void printInfo(U info) {
+        System.out.println(info);
     }
 }
 
 public class GenericDemo {
     public static void main(String[] args) {
-        // Person에는 EmployeeInfo타입의 데이터만 들어오도록 한다.
-        Person<EmployeeInfo> person1 = new Person<>(new EmployeeInfo(1));
-        EmployeeInfo info1 = person1.info;
-        System.out.println(info1.rank);
 
-        Person<String> person2 = new Person<>("사장");
-        String info2 = person2.info;
-        // System.out.println(info2.rank); // 컴파일 에러
+        EmployeeInfo employeeInfo = new EmployeeInfo(1);
+        Long id = 1L;
+        // employeeInfo, id라는 매개변수를 통해 제너릭 생략 가능
+        Person person = new Person<>(employeeInfo, id);
+
+        person.<EmployeeInfo>printInfo(employeeInfo);
+        // employeeInfo라는 매개변수를 통해 제너릭 생략 가능
+        person.printInfo(employeeInfo.rank);
+
+        // 제너릭 메소드의 타입 매개변수 우선 처리
+        person.printInfo("이지금");
     }
 }
