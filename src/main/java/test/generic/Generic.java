@@ -1,32 +1,27 @@
 package test.generic;
 
-class Member<T> {
-    private T t;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Member(T t) {
-        this.t = t;
+class Admin {}
+class Member<T extends Admin> {
+    List<T> list = new ArrayList<>();
+
+    public void add(T t) {
+        list.add(t);
     }
 
-    public void dataType() {
-        System.out.println("제너릭 클래스의 데이터 타입="+t.getClass().getName());
+    public T get(int index) {
+        return list.get(index);
     }
-
-    public <T> void genericMethod(T t) {
-        System.out.println("제너릭 메소드 입니다. "+t.getClass().getName());
-    }
-
 }
 
 public class Generic {
     public static void main(String[] args) {
-        Member<String> member1 = new Member<>(new String());
-        Member<StringBuilder> member2 = new Member<>(new StringBuilder());
-
-        member1.dataType();
-        member2.dataType();
-
-        member1.genericMethod(new Integer(1));
-        member2.genericMethod(new Double(1.1));
+        Member<Admin> adminMember = new Member<>();
+        adminMember.add(new Admin());
+        adminMember.get(0);
+        System.out.println(adminMember);
     }
 }
 

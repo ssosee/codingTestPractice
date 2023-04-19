@@ -1,28 +1,37 @@
 package test.generic;
 
-class StudentInfo {
-    public int grade;
-    public StudentInfo(int grade) {
-        this.grade = grade;
-    }
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
+abstract class Info {
+    public abstract int getLevel();
 }
 
-class EmployeeInfo {
+class EmployeeInfo extends Info {
     public int rank;
 
     public EmployeeInfo(int rank) {
         this.rank = rank;
     }
+
+    @Override
+    public int getLevel() {
+        return this.rank;
+    }
 }
 
-// S는 T와 구분하기 위해 다른 문자
-class Person<T, S> {
+// T로 올 수 있는 데이터 타입을 Info또는 Info의 자식 클래스로 제한
+class Person<S, T extends Info> {
     public T info;
     public S id;
 
     public Person(T info, S id) {
         this.info = info;
         this.id = id;
+        // T를 Info로 제한했기 때문에 사용 가능
+        info.getLevel();
     }
 
     // 제너릭 메소드
@@ -35,16 +44,17 @@ class Person<T, S> {
 public class GenericDemo {
     public static void main(String[] args) {
 
-        EmployeeInfo employeeInfo = new EmployeeInfo(1);
-        Long id = 1L;
-        // employeeInfo, id라는 매개변수를 통해 제너릭 생략 가능
-        Person person = new Person<>(employeeInfo, id);
+        // EmployeeInfo는 Info의 자식 입니다.
+        Person<Long, EmployeeInfo> person = new Person<>(new EmployeeInfo(1), 1L);
+        // String 은 Info의 자식이 아닙니다.
+        // 컴파일 에러
+        // Person<Long, String> stringPerson = new Person<Long, String>("이지동");
 
-        person.<EmployeeInfo>printInfo(employeeInfo);
-        // employeeInfo라는 매개변수를 통해 제너릭 생략 가능
-        person.printInfo(employeeInfo.rank);
+    }
 
-        // 제너릭 메소드의 타입 매개변수 우선 처리
-        person.printInfo("이지금");
+    static void printCollection(Collection<?> c) {
+        for(Object o : c) {
+            System.out.println(o);
+        }
     }
 }
