@@ -3,97 +3,115 @@ package backjoon.search.dfs;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Quiz9205 {
-    static int[][] path;
-    static boolean[] beer = new boolean[20];
-    static String result = "happy";
-
-    static int endX;
-    static int endY;
+    static int n;
+    static boolean[] visited;
+    static List<Integer>[] newMap;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+
         int t = Integer.parseInt(br.readLine());
 
         for(int tc = 0; tc < t; tc++) {
-            int n = Integer.parseInt(br.readLine());
-            StringTokenizer st = new StringTokenizer(br.readLine());
+            n = Integer.parseInt(br.readLine());
 
-            int startX = Integer.parseInt(st.nextToken());
-            int startY = Integer.parseInt(st.nextToken());
+            // x,y를 저장하는 리스트 생성
+            List<Node> path = new ArrayList<>();
 
-            path = new int[n+1][2];
-            for(int i = 0; i < n+1; i++) {
-                st = new StringTokenizer(br.readLine());
+            // 시작점, 편의점, 도착점 저장
+            for(int i = 0; i < n + 2; i++) {
+                StringTokenizer st = new StringTokenizer(br.readLine());
                 int x = Integer.parseInt(st.nextToken());
                 int y = Integer.parseInt(st.nextToken());
-                //System.out.println(i+", x="+x+", y="+y);
-                path[i][0] = x;
-                path[i][1] = y;
+
+                path.add(new Node(x, y));
             }
 
-            Arrays.sort(path, (o1, o2) -> Integer.compare(o1[0], o2[0]));
-//
-//            st = new StringTokenizer(br.readLine());
-//            path[n][0] = Integer.parseInt(st.nextToken());
-//            path[n][1] = Integer.parseInt(st.nextToken());
+            // 인접 리스트 생성
+            newMap = new ArrayList[n+2];
+            for(int i = 0; i < n + 2; i++) {
+                newMap[i] = new ArrayList<>();
+            }
 
+            for(int i = 0; i < n + 2; i++) {
+                for(int j = i + 1; j < n + 2; j++) {
+                    Node node1 = path.get(i);
+                    Node node2 = path.get(j);
 
-            // 맥주 채워 넣기
-            buyBeer(20);
-            dfs(startX, startY, 0, "");
+                    // 거리가 1000m 이하이면
+                    if(getManhattanDistance(node1.getX(), node1.getY(), node2.getX(), node2.getY()) <= 1000) {
+                        // i, j를 노드라고 생각하고 경로 생성
+                        // 양방향
+                        newMap[i].add(j);
+                        newMap[j].add(i);
+                    }
+                }
+            }
 
-            System.out.println(result);
+            // newMap에는 인접한 거리가 1000m이하인 경로들로 이루어져 있다.
+            // 1000m이하이니까 무조건 happy 아닌가? 라고 생각할 수 있는데
+            // 1000m이하로 이루어져 있더라도, 도착점에 가지 못하면 sad입니다.
+            visited = new boolean[n+2];
+            String bfs = bfs(0);
+
+            sb.append(bfs).append("\n");
         }
 
+        System.out.print(sb);
         br.close();
     }
 
-    private static void dfs(int startX, int startY, int depth, String status) {
+    private static String bfs(int start) {
+        Queue<Integer> queue = new ArrayDeque<>();
+        // 시작점 삽입
+        queue.add(start);
+        visited[start] = true;
 
-        if(depth >= path.length) {
-            result = status;
-            return;
-        }
+        while (!queue.isEmpty()) {
+            // 노드를 꺼낸다.
+            Integer poll = queue.poll();
 
-        int newEndX = path[depth][0];
-        int newEndY = path[depth][1];
-
-        // 거리계산(맨해튼 거리)
-        int distance = Math.abs(startX - newEndX) + Math.abs(startY - newEndY);
-
-        int count = getDrunkBeerCount(distance);
-        if(count > 20) {
-            result = "sad";
-            return;
-        }
-
-        buyBeer(count);
-        dfs(newEndX, newEndY, depth + 1, "happy");
-    }
-
-    private static int getDrunkBeerCount(int distance) {
-        // 필요한 맥주 갯수 계산
-        int needCount = distance / 50;
-
-        // 필요한 맥주가 20개 보다 많으면
-        if(needCount > beer.length) return needCount;
-
-        for(int i = 0; i < needCount; i++) {
-            beer[i] = false;
-        }
-
-        return needCount;
-    }
-
-    private static void buyBeer(int count) {
-        for(int i = 0; i < count; i++) {
-            if(!beer[i]) {
-                beer[i] = true;
+            // 마지막 지점에 도착하면
+            if(poll == n + 1) {
+                return "happy";
             }
+
+            // 인접 노드를 탐색
+            for(Integer node : newMap[poll]) {
+                // 인접 노드에 방문 이력이 없으면
+                if(!visited[node]) {
+                    visited[node] = true;
+                    queue.add(node);
+                }
+            }
+        }
+
+        return "sad";
+    }
+
+    // 맨하튼 거리 계산
+    private static int getManhattanDistance(int startX, int startY, int endX, int endY) {
+        return Math.abs(startX - endX) + Math.abs(startY - endY);
+    }
+
+    static class Node {
+        private int x;
+        private int y;
+
+        public Node(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public int getY() {
+            return y;
         }
     }
 }
