@@ -55,7 +55,7 @@ public class 빙산_2573 {
         }
 
         System.out.print(year);
-
+        br.close();
     }
 
     // 빙산 뭉탱이 계산
