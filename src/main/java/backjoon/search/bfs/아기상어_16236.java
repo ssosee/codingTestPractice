@@ -98,6 +98,7 @@ public class 아기상어_16236 {
                     isEat = true;
                     startX = x;
                     startY = y;
+                    System.out.println(x+", "+y+", "+move);
                     break;
                 }
 
