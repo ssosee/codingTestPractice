@@ -93,9 +93,11 @@ public class 뉴스_클러스터링 {
                     if (length % 2 == 0) {
                         arr.add(sb.toString());
                         sb.setLength(0);
-                        i--;
+                        i--; // 이전 탐색
                     }
-                } else {
+                }
+                // 알파벳이 아니면
+                else {
                     sb.setLength(0);
                 }
             }
