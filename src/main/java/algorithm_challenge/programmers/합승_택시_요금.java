@@ -23,6 +23,7 @@ public class 합승_택시_요금 {
             int answer = INF;
 
             /**
+             * 다익스트라 알고리즘을 사용
              * 1. 출발점 -> x
              * 2. x -> a
              * 3. x -> b
@@ -44,11 +45,13 @@ public class 합승_택시_요금 {
                 paths[end].add(new Path(start, value));
             }
 
-            int[] dijkstra1 = dijkstra(n, s);
-            int[] dijkstra2 = dijkstra(n, a);
-            int[] dijkstra3 = dijkstra(n, b);
+            int[] dijkstra1 = dijkstra(n, s); // s에서 모든 위치까지 최단거리 생성
+            int[] dijkstra2 = dijkstra(n, a); // a에서 모든 위치까지 최단거리 생성
+            int[] dijkstra3 = dijkstra(n, b); // b에서 모든 위치까지 최단거리 생성
 
+            // 시작점(s, a, b) 에서 모든 위치까지 최단거리를 각각 구한다.
             for(int i = 1; i < n+1; i++) {
+                // 합승할 수 있는 지점에서 최단거리를 구한다.
                 answer = Math.min(dijkstra1[i] + dijkstra2[i] + dijkstra3[i], answer);
             }
 
@@ -63,6 +66,7 @@ public class 합승_택시_요금 {
                 shortest[i] = INF;
             }
 
+            // 가중치를 기준으로 오름차순 정렬
             Queue<Path> pq = new PriorityQueue<>((o1, o2) -> Integer.compare(o1.value, o2.value));
             shortest[start] = 0;
             pq.offer(new Path(start, 0));
