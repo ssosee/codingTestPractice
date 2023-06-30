@@ -25,7 +25,6 @@ public class 단어_변환 {
         static int result = Integer.MAX_VALUE;
         static boolean[] visited;
         public int solution(String begin, String target, String[] words) {
-            int answer = 0;
 
             // words에 target이 포함되었는지 확인
             if(!validationTarget(target, words)) return 0;
@@ -37,7 +36,9 @@ public class 단어_변환 {
         }
 
         private void dfs(String begin, String target, String[] words, int depth) {
+            // 타겟 단어와 같으면
             if(begin.equals(target)) {
+                // 최소 단계를 저장
                 result = Math.min(result, depth);
                 return;
             }
@@ -46,20 +47,23 @@ public class 단어_변환 {
                 String word = words[i];
                 int diff = 0;
                 for(int j = 0; j < begin.length(); j++) {
+                    // 동일한 위치의 단어가 다른지 확인해야한다.
                     char b = begin.charAt(j);
                     char w = word.charAt(j);
                     if(b != w) diff++;
                 }
 
+                // 1개의 알파벳이 다르고, 해당 단어에 방문 이력이 없으면
                 if(diff == 1 && !visited[i]) {
                     visited[i] = true;
                     dfs(word, target, words, depth + 1);
-                    visited[i] = false;
+                    visited[i] = false; // 모든 단어에 방문해야하기 때문에 다시 방문이력을 삭제한다.
                 }
             }
         }
 
         private static boolean validationTarget(String target, String[] words) {
+            // words에 target이 포함되었는지 확인
             for(String word : words) {
                 if(word.equals(target)) return true;
             }
