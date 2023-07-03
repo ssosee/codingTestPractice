@@ -29,6 +29,7 @@ public class 트럭 {
             trucks.offer(weight);
         }
 
+        // 초기화
         Queue<Integer> bridge = new ArrayDeque<>();
         for(int i = 0; i < w; i++) {
             bridge.offer(0);
@@ -38,6 +39,7 @@ public class 트럭 {
         int bridgeWeight = 0;
         while (!bridge.isEmpty()) {
             time++;
+            // 현재 다리 무게 갱신(트럭이 다리를 건넌다.)
             bridgeWeight -= bridge.poll();
 
             if(!trucks.isEmpty()) {

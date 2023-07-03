@@ -36,16 +36,21 @@ public class 풍선_터트리기 {
             int leftMin = a[0];
             int rightMin = a[a.length - 1];
             for(int i = 0; i < a.length; i++) {
+                // 왼쪽 최솟값
                 leftMin = Math.min(a[i], leftMin);
+                // 오른쪽 최솟값
                 rightMin = Math.min(a[a.length - i - 1], rightMin);
 
+                // leftMinArr[i]는 a[i]일 때 왼쪽 최솟값을 나타낸다.
                 leftMinArr[i] = leftMin;
+                // rightMinArr[i]는 a[i]일 때 오른쪽 최솟값을 나타낸다.
                 rightMinArr[a.length - i - 1] = rightMin;
             }
 
             int count = 0;
             for(int i = 0; i < a.length; i++) {
                 int target = a[i];
+                // 최후로 남는 풍선이 아닌경우
                 if(target > leftMinArr[i] && target > rightMinArr[i]) {
                     count++;
                 }
