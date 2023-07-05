@@ -9,7 +9,7 @@ import java.util.List;
 public class 표현_가능한_이진트리 {
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] result = solution.solution(new long[]{15, 5});
+        int[] result = solution.solution(new long[]{95, 5});
         System.out.println(result);
     }
 
@@ -38,10 +38,12 @@ public class 표현_가능한_이진트리 {
              * 1. 포화 이진트리로 만든다.
              * 2. 0을 제거했을 때 2진 트리가 되는지 확인
              */
-            int j = 0;
             for(int i = 0; i < numbers.length; i++) {
+                // 2진수로 변환
                 String binaryString = Long.toBinaryString(numbers[i]);
+                // 포화 이진트리 생성
                 String fullBinary = createFullBinary(binaryString);
+
                 if(isBinaryTree(fullBinary)) {
                     answer.add(1);
                 } else {
@@ -71,6 +73,7 @@ public class 표현_가능한_이진트리 {
             return sb.toString();
         }
 
+        // 이진트리 확인
         private boolean isBinaryTree(String binaryString) {
             int len = binaryString.length();
             // 리프노드인 경우
@@ -89,6 +92,7 @@ public class 표현_가능한_이진트리 {
             return isBinaryTree(left) && isBinaryTree(right);
         }
 
+        // 0을 포함하는 트리인지
         private boolean isZeroTree(String binaryString) {
             int len = binaryString.length();
             if(binaryString.length() == 0) return true;
