@@ -22,7 +22,7 @@ public class 보석_쇼핑 {
          * 3. loop 순회하면서 구간을 구한다.
          */
         public int[] solution(String[] gems) {
-            int[] answer = {};
+
             Set<String> gemSet = new HashSet<>(Arrays.asList(gems));
             Map<String, Integer> gemsMap = new HashMap<>();
             Queue<String> gemQueue = new ArrayDeque<>(); // 어피치가 선택한 보석 리스트
@@ -31,7 +31,7 @@ public class 보석_쇼핑 {
             int end = Integer.MAX_VALUE; // 선택한 보석 리스트의 끝 지점
             // 최종적으로 값을 리턴할 때 사용하는 변수,
             // 선택한 보석들이 모든 종류의 보석을 포함하고,
-            // selectGems의 값이 최솟값인 경우의 시작 지점을 저장
+            // gemQueue 값이 최솟값인 경우의 시작 지점을 저장
             int startPoint = 0;
 
             for(String gem : gems) {

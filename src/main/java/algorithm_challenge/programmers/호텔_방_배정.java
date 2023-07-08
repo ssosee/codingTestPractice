@@ -14,13 +14,12 @@ public class 호텔_방_배정 {
      * 2. 고객은 원하는 방번호 제출
      * 3. 방이 비어있으면 즉시 배정
      * 4. 원하는 방이 이미 배정되어 있으면 원하는 방보다 번호가 크면서 비어있는 방 중 번호가 가장 작은 방 배정
-     *
-     *
      */
     static class Solution {
 
         static List<Long> result = new ArrayList<>();
         static Map<Long, Long> roomMap = new HashMap<>();
+
         public long[] solution(long k, long[] room_number) {
 
             for(int i = 0; i < room_number.length; i++) {
@@ -46,5 +45,4 @@ public class 호텔_방_배정 {
             return emptyRoomNumber;
         }
     }
-
 }
