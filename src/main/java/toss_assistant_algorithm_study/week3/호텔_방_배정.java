@@ -43,10 +43,12 @@ public class 호텔_방_배정 {
                 roomMap.put(roomNumber, roomNumber + 1);
                 return roomNumber;
             }
+
             // 빈방이 아니면
-            Long nextRoomNumber = roomMap.get(roomNumber);
-            long emptyRoomNumber = findEmptyRoom(nextRoomNumber);
-            roomMap.put(roomNumber, nextRoomNumber);
+            long nextRoomNumber = roomMap.get(roomNumber); // 탐색할 다음방
+            long emptyRoomNumber = findEmptyRoom(nextRoomNumber); // 빈방
+            roomMap.put(roomNumber, emptyRoomNumber); // 빈방을 등록
+
             return emptyRoomNumber;
         }
     }
