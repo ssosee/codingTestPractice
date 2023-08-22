@@ -1,4 +1,4 @@
-package toss_assistant_algorithm_study.week2;
+package toss_assistant_algorithm_study.season1.week2;
 
 import java.io.BufferedReader;
 import java.io.IOException;

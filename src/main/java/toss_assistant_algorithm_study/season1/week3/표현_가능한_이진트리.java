@@ -1,7 +1,6 @@
-package toss_assistant_algorithm_study.week3;
+package toss_assistant_algorithm_study.season1.week3;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class 표현_가능한_이진트리 {
@@ -12,10 +11,20 @@ public class 표현_가능한_이진트리 {
     }
 
     /**
+     * 난이도
+     * - 매우 어려움
+     *
      * 아이디어
      * 1. 10진수를 2진수로 변환
-     * 2. 포화이진트리로 변환(2^n + 1개의 노드(n은 0부터))
-     * 3. 가운데 0인지 확인(루트 노드는 더미노드(0)이 될 수 없음)
+     * 2. 포화 이진트리로 변환(2^n + 1개의 노드(n은 0부터))
+     * 3. 가운데 0인지 확인(루트 노드가 0이면 자식노드는 0이어야 함)
+     *
+     * 시간복잡도
+     * 1. O(N)
+     *
+     * 자료구조
+     * 1. 배열
+     * 2. 재귀
      */
     static class Solution {
         public int[] solution(long[] numbers) {

@@ -1,4 +1,4 @@
-package toss_assistant_algorithm_study.week2;
+package toss_assistant_algorithm_study.season1.week2;
 
 public class 광고_삽입 {
     public static void main(String[] args) {

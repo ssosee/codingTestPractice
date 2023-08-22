@@ -1,4 +1,4 @@
-package toss_assistant_algorithm_study.week2;
+package toss_assistant_algorithm_study.season1.week2;
 
 public class 두_원_사이의_쌍 {
 

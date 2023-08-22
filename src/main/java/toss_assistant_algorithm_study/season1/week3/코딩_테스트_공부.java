@@ -1,4 +1,4 @@
-package toss_assistant_algorithm_study.week3;
+package toss_assistant_algorithm_study.season1.week3;
 
 public class 코딩_테스트_공부 {
     public static void main(String[] args) {
