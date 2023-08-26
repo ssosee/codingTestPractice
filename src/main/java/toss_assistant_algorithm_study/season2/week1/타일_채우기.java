@@ -30,6 +30,12 @@ public class 타일_채우기 {
      *  4-3) 타일(3*2) + 특이한 타일(3*6) -> 3 * 2 = 6
      *      따라서 4-1, 4-2, 4-3 합치면 123 + 22 + 6 + 특이한 타일(2) = 153
      *  tile(8) = tile(6) * 3 + tile(4) * 2 + tile(2) * 2 + tile(0) * 2
+     *
+     *  자료구조
+     *  배열
+     *
+     *  시간복잡도
+     *  O(N^2)
      */
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -44,7 +50,7 @@ public class 타일_채우기 {
             return;
         }
 
-        // n = 0 이면 타일을 안쓰면 되는 경우의 수 1개
+        // n = 0 이면 타일을 안쓰면 되는 경우의 수 1개라고 가정~
         tile[0] = 1;
         for(int i = 2; i <= n; i+=2){
             tile[i] = tile[i-2] * 3;
