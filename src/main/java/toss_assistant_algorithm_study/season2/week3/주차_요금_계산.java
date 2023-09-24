@@ -1,19 +1,9 @@
 package toss_assistant_algorithm_study.season2.week3;
 
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.Temporal;
-import java.time.temporal.TemporalAccessor;
 import java.util.*;
-import java.util.logging.SimpleFormatter;
 
 public class 주차_요금_계산 {
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) {
         Solution solution = new Solution();
         System.out.println(Arrays.toString(solution.solution(new int[]{180, 5000, 10, 600},
                 new String[]{"05:34 5961 IN", "06:00 0000 IN",
@@ -38,7 +28,7 @@ public class 주차_요금_계산 {
          * 시간복잡도
          *  O(N)
          */
-        public int[] solution(int[] fees, String[] records) throws ParseException {
+        public int[] solution(int[] fees, String[] records) {
 
             Set<String> carNumbers = new HashSet<>();
             Map<String, Integer> carTimeMap = new HashMap<>();
