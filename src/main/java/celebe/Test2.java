@@ -55,6 +55,8 @@ public class Test2 {
 
                 }
             }
+
+            return 0;
         }
     }
 }
