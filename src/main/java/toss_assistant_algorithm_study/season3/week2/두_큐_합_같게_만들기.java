@@ -1,7 +1,8 @@
-package toss_assistant_algorithm_study.season3;
+package toss_assistant_algorithm_study.season3.week2;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,8 @@ public class 두_큐_합_같게_만들기 {
      *  - O(N)
      */
     static class Solution {
-        public int solution(int[] queue1, int[] queue2) {
+
+        public int solution2(int[] queue1, int[] queue2) {
             long q1Sum = Arrays.stream(queue1).sum();
             long q2Sum = Arrays.stream(queue2).sum();
             long sum = q1Sum + q2Sum;
@@ -84,6 +86,42 @@ public class 두_큐_합_같게_만들기 {
             }
 
             return count;
+        }
+
+        public int solution(int[] queue1, int[] queue2) {
+            long q1Sum = Arrays.stream(queue1).sum();
+            long q2Sum = Arrays.stream(queue2).sum();
+
+            if((q1Sum + q2Sum) % 2 != 0) return -1;
+
+            Queue<Integer> q1 = Arrays.stream(queue1)
+                    .boxed()
+                    .collect(Collectors.toCollection(ArrayDeque::new));
+
+            Queue<Integer> q2 = Arrays.stream(queue2)
+                    .boxed()
+                    .collect(Collectors.toCollection(ArrayDeque::new));
+
+            int count = 0;
+            while (true) {
+                if(count > queue1.length * 3) return -1;
+                else if(q1Sum > q2Sum) {
+                    Integer poll = q1.poll();
+                    q2.offer(poll);
+
+                    q1Sum -= poll;
+                    q2Sum += poll;
+                } else if(q1Sum < q2Sum) {
+                    Integer poll = q2.poll();
+                    q1.offer(poll);
+
+                    q1Sum += poll;
+                    q2Sum -= poll;
+                } else {
+                   return count;
+                }
+                count++;
+            }
         }
     }
 }

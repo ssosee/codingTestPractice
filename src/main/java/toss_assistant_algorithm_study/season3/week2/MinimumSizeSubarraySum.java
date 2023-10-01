@@ -1,4 +1,4 @@
-package toss_assistant_algorithm_study.season3;
+package toss_assistant_algorithm_study.season3.week2;
 
 import java.util.Arrays;
 
@@ -6,13 +6,13 @@ public class MinimumSizeSubarraySum {
     public static void main(String[] args) {
         Solution solution = new Solution();
         System.out.println(solution.minSubArrayLen(7, new int[]{2,3,1,2,4,3}));
-        //System.out.println(solution.minSubArrayLen(11, new int[]{1,1,1,1,1,1,1,1}));
-        //System.out.println(solution.minSubArrayLen(4, new int[]{1,4,4}));
+        // System.out.println(solution.minSubArrayLen(11, new int[]{1,1,1,1,1,1,1,1}));
+        // System.out.println(solution.minSubArrayLen(4, new int[]{1,4,4}));
     }
 
     /**
      * 아이디어
-     *  - 투포인터, 중복합
+     *  - 투포인터, 중복합(누적합)
      *  [1, 2, 2, 3, 3, 4], target = 7
      *  1 < 7
      *  1+2 < 7

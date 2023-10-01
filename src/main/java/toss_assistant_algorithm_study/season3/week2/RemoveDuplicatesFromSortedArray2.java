@@ -1,4 +1,4 @@
-package toss_assistant_algorithm_study.season3;
+package toss_assistant_algorithm_study.season3.week2;
 
 import java.util.*;
 
