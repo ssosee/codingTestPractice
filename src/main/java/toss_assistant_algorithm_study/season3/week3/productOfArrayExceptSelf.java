@@ -1,9 +1,5 @@
 package toss_assistant_algorithm_study.season3.week3;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.TreeMap;
-
 public class productOfArrayExceptSelf {
     public static void main(String[] args) {
         Solution solution = new Solution();
@@ -42,26 +38,23 @@ public class productOfArrayExceptSelf {
      */
     static class Solution {
         public int[] productExceptSelf(int[] nums) {
+            int[] answer = new int[nums.length];
 
-            // 자기자신을 제외한 모든 원소의 곱
-            int n = nums.length;
-            int[] result = new int[n];
-
-            // 왼쪽에서 오른쪽으로 곱셈 결과를 계산합니다.
+            // 왼쪽으로 곱
             int leftProduct = 1;
-            for (int i = 0; i < n; i++) {
-                result[i] = leftProduct;
+            for(int i = 0; i < nums.length; i++) {
+                answer[i] = leftProduct;
                 leftProduct *= nums[i];
             }
 
-            // 오른쪽에서 왼쪽으로 곱셈 결과를 계산하면서 결과를 업데이트합니다.
+            // 오른쪽으로 곱
             int rightProduct = 1;
-            for (int i = n - 1; i >= 0; i--) {
-                result[i] *= rightProduct;
+            for(int i = nums.length - 1; i >= 0; i--) {
+                answer[i] *= rightProduct;
                 rightProduct *= nums[i];
             }
 
-            return result;
+            return answer;
         }
     }
 }
