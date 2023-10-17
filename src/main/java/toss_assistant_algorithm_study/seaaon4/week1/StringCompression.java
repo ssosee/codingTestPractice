@@ -1,4 +1,4 @@
-package toss_assistant_algorithm_study.seaaon4;
+package toss_assistant_algorithm_study.seaaon4.week1;
 
 import java.util.*;
 
