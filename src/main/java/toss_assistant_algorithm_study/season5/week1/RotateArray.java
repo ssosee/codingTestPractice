@@ -3,8 +3,6 @@ package toss_assistant_algorithm_study.season5.week1;
 import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Stack;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class RotateArray {
     public static void main(String[] args) {
