@@ -2,7 +2,6 @@ package toss_assistant_algorithm_study.season6;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 public class GenerateParentheses {
     public static void main(String[] args) {
@@ -22,7 +21,6 @@ public class GenerateParentheses {
         }
 
         private void createParentheses(String parenthesis, int openCount, int closeCount) {
-            System.out.println(parenthesis);
             if(openCount == 0 && closeCount == 0) {
                 parentheses.add(parenthesis);
                 return;
