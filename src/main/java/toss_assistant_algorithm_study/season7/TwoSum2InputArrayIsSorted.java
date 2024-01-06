@@ -46,6 +46,13 @@ public class TwoSum2InputArrayIsSorted {
          * - 최좌측(left)과 최우측(right)을 인덱스를 잡고 sum이 target보다 작으면 left++
          * - 최좌측(left)과 최우측(right)을 인덱스를 잡고 sum이 target보다 크면 right--
          *
+         *  numbers = [2,7,11,15,17], target = 18
+         *  left: 0, right: 4
+         *      1. numbers[0] + numbers[4] = 19 -> target 보다 크다 -> right--
+         *      2. numbers[0] + numbers[3] = 17 -> target 보다 작다 -> left++
+         *      3. numbers[1] + numbers[3] = 22 -> target 보다 크다 -> right--
+         *      4. numbers[1] + numbers[2] = 18 -> target과 일치!
+         *
          * 자료구조
          * - 1차원 배열
          *
