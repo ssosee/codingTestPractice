@@ -1,4 +1,4 @@
-package toss_assistant_algorithm_study.season6;
+package toss_assistant_algorithm_study.season6.week1;
 
 import java.util.ArrayList;
 import java.util.List;

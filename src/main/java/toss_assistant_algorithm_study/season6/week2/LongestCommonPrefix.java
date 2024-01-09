@@ -1,4 +1,4 @@
-package toss_assistant_algorithm_study.season7;
+package toss_assistant_algorithm_study.season6.week2;
 
 public class LongestCommonPrefix {
     public static void main(String[] args) {

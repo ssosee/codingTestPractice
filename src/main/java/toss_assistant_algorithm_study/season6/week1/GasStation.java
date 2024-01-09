@@ -1,4 +1,4 @@
-package toss_assistant_algorithm_study.season6;
+package toss_assistant_algorithm_study.season6.week1;
 
 public class GasStation {
     public static void main(String[] args) {
