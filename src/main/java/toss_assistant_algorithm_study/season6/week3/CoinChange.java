@@ -16,7 +16,7 @@ public class CoinChange {
     /**
      * 아이디어
      * - 코인에 있는 배열을 조합해서 가장 적은 코인을 사용해서 amount를 만들어야 함
-     *
+     * - 끝점에서 가는게 효율적인 경우가 많다.(쏘영쏘)
      */
     static class Solution {
         public int coinChange(int[] coins, int amount) {

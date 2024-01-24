@@ -17,8 +17,8 @@ public class LongestSubstringWithoutRepeatingCharacters {
      *
      *  s = "abcabcbb"
      *  1. a    a(defaultIndex)는 만난적이 없었다. a(defaultIndex)를 저장하자     ->  a        defaultIndex = 0, deleteIndex = 0
-     *  2. b    b(defaultIndex)는 만난적이 없었다. a(defaultIndex)를 저장하자     ->  ab       defaultIndex = 1, deleteIndex = 0
-     *  3. c    c(defaultIndex)는 만난적이 없었다. a(defaultIndex)를 저장하자     ->  abc      defaultIndex = 2, deleteIndex = 0
+     *  2. b    b(defaultIndex)는 만난적이 없었다. b(defaultIndex)를 저장하자     ->  ab       defaultIndex = 1, deleteIndex = 0
+     *  3. c    c(defaultIndex)는 만난적이 없었다. c(defaultIndex)를 저장하자     ->  abc      defaultIndex = 2, deleteIndex = 0
      *  4. a    a(defaultIndex)는 만난적이 있다. a(deleteIndex)를 제거하자       ->  bc       defaultIndex = 3, deleteIndex = 0
      *  5. a    a(defaultIndex)는 만난적이 없었다. a(defaultIndex)를 저장하자     ->  bca      defaultIndex = 3, deleteIndex = 1
      *  6. b    b(defaultIndex)는 만난적이 있다. b(deleteIndex)를 삭제하자       ->  ca       defaultIndex = 4, deleteIndex = 1
