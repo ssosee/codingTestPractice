@@ -22,6 +22,9 @@ public class GameOfLife {
      * 모든 과정을 탐색한 뒤 한번에 갱신해야한다...!
      */
     static class Solution {
+        public static final int ALIVE = 1;
+        public static final int DEATH = 0;
+
         // 상,하,좌,우,대각선 8방
         static int[][] xy = {
                 {-1, -1},
@@ -55,26 +58,26 @@ public class GameOfLife {
                         }
 
                         // 이웃이 살아있는 세포이면
-                        if(copyBoard[x][y] == 1) {
+                        if(copyBoard[x][y] == ALIVE) {
                             liveCellCount++;
                         }
                     }
 
                     // 살아있는 세포
-                    if(copyBoard[i][j] == 1) {
+                    if(copyBoard[i][j] == ALIVE) {
                         // 이웃에 살아있는 세포가 2개 미만
                         if(liveCellCount < 2) {
-                            board[i][j] = 0; // 사망
+                            board[i][j] = DEATH; // 사망
                         }
                         // 이웃에 살아있는 세포가 3개 초과
                         else if(liveCellCount > 3) {
-                            board[i][j] = 0; // 사망
+                            board[i][j] = DEATH; // 사망
                         }
                         // 그대로
                     }
                     // 죽은 세포이고 이웃에 살아있는 세포가 3개이면
                     else if (liveCellCount == 3) {
-                        board[i][j] = 1; // 부활
+                        board[i][j] = ALIVE; // 부활
                     }
                 }
             }
